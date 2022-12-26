@@ -21,12 +21,14 @@ class ViewSetMixin(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         user_queryset = self.queryset.filter(user=self.request.user)
         serializer = self.get_serializer(user_queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(serializer.data, status=status.HTTP_201_CREATED,
+                        headers=headers)
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer = self.get_serializer(instance, data=request.data,
+                                         partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         user_queryset = self.queryset.filter(user=self.request.user)

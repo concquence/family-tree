@@ -39,13 +39,13 @@ class DocumentSerializer(serializers.ModelSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
     password = serializers.CharField(max_length=50, min_length=8, write_only=True)
-    repeat_password = serializers.CharField(max_length=50, min_length=8, write_only=True)
+    repeat_password = serializers.CharField(max_length=50, min_length=8,
+                                            write_only=True)
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'username', 'email', 'password',
-                  'repeat_password'
-                  )
+        fields = ('id', 'first_name', 'last_name', 'username', 'email',
+                  'password', 'repeat_password')
         extra_kwargs = {'password': {'write_only': True}}
 
     def validate(self, args):
@@ -54,15 +54,19 @@ class RegisterSerializer(serializers.ModelSerializer):
         password2 = args.get('repeat_password', None)
 
         if User.objects.filter(email=email).exists():
-            raise serializers.ValidationError({'email': ('Пользователь с таким e-mail уже существует!')})
+            raise serializers.ValidationError({'email': ('Пользователь с '
+                                                         'таким e-mail уже '
+                                                         'существует!')})
 
         if password1 != password2:
-            raise serializers.ValidationError({'password': ('Пароли не совпадают!')})
+            raise serializers.ValidationError({'password': ('Пароли не '
+                                                            'совпадают!')})
 
         return super().validate(args)
 
     def create(self, validated_data):
-        user = User.objects.create_user(validated_data['username'], password=validated_data['password'],
+        user = User.objects.create_user(validated_data['username'],
+                                        password=validated_data['password'],
                                         email=validated_data['email'])
         return user
 

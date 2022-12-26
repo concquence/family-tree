@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'people.apps.PeopleConfig',
     'djoser',
+    'drf_yasg',
     'rest_framework',
     'rest_framework.authtoken',
 ]

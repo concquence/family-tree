@@ -1,7 +1,8 @@
 from .utils import ViewSetMixin
 from .models import Person, Image, Document
 from rest_framework import viewsets, generics, status
-from .serializers import PersonSerializer, RegisterSerializer, UserSerializer, ImageSerializer, DocumentSerializer
+from .serializers import PersonSerializer, RegisterSerializer, UserSerializer,\
+    ImageSerializer, DocumentSerializer
 from djoser.views import UserViewSet
 from rest_framework.response import Response
 
@@ -29,8 +30,10 @@ class RegisterAPIView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         return Response({
-            "user": UserSerializer(user, context=self.get_serializer_context()).data,
-            "message": "User Created Successfully.  Now perform Login to get your token",
+            "user": UserSerializer(user,
+                                   context=self.get_serializer_context()).data,
+            "message": "User Created Successfully.  Now perform Login to get "
+                       "your token",
         })
 
 
@@ -40,7 +43,8 @@ class ActivateUser(UserViewSet):
         kwargs.setdefault('context', self.get_serializer_context())
 
         # this line is the only change from the base implementation.
-        kwargs['data'] = {"uid": self.kwargs['uid'], "token": self.kwargs['token']}
+        kwargs['data'] = {"uid": self.kwargs['uid'],
+                          "token": self.kwargs['token']}
 
         return serializer_class(*args, **kwargs)
 

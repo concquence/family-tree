@@ -5,10 +5,12 @@ from .models import Person, Image, Document
 
 
 class PersonAdmin(AdminMixin, admin.ModelAdmin):
-    list_display = ('id', 'first_name', 'last_name', 'gender', 'father', 'mother', 'partners', 'get_photo', 'tree_owner')
+    list_display = ('id', 'first_name', 'last_name', 'gender', 'father',
+                    'mother', 'partners', 'get_photo', 'tree_owner')
     list_display_links = ('id', 'first_name')
     search_fields = ('id', 'first_name', 'last_name', 'bio')
-    fields = ('tree_owner', 'gender', 'first_name', 'last_name', 'maiden_name', 'birth', 'death',
+    fields = ('tree_owner', 'gender', 'first_name', 'last_name', 'maiden_name',
+              'birth', 'death',
               'lived_ca', 'father', 'mother', 'spouse', 'bio', 'photo',)
 
     def get_photo(self, obj):
