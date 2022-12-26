@@ -1,6 +1,6 @@
 # Family Tree
 
-A server side (backend) of the React application 'Family Tree'. The application API allows users to create thier own genealogical family trees. A user can create, update and delete family members and upload photos or documents
+A server side (backend) of the React application 'Генеалогия' by [@alexglen](https://github.com/alexglen). The application API allows users to create thier own genealogical family trees. A user can create, update and delete family members and upload photos or documents
 
 To get the application running you need to install requirements from requirements.txt file:
 
